@@ -2,8 +2,7 @@ const puppeteer = require("puppeteer");
 require("dotenv").config();
 
 const scrapeLogic = async (res) => {
-  // res.send(""+puppeteer.executablePath())
-  const browser = await puppeteer.launch({
+  const config = {
     args: [
       "--disable-setuid-sandbox",
       "--no-sandbox",
@@ -14,7 +13,10 @@ const scrapeLogic = async (res) => {
       process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
-  });
+  }
+  console.log({ config })
+  const browser = await puppeteer.launch(config);
+
   try {
     // Launch the browser and open a new blank page
     const browser = await puppeteer.launch();
